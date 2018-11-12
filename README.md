@@ -1,4 +1,14 @@
-## Install and run
+## Simple run
+```
+# npm i -g pm2 typescript
+# npm i
+# npm start
+```
+
+go to http://localhost:3000/
+
+
+## Advantage install and run
 ```
 # npm i -g pm2 typescript
 # cd /path/to/backend
