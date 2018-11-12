@@ -1,6 +1,6 @@
 ## Simple run
 ```
-# npm i -g pm2 typescript
+# sudo npm i -g pm2 typescript
 # npm i
 # npm start
 ```

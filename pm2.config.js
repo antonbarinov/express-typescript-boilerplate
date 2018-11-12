@@ -7,7 +7,7 @@ module.exports = {
         // First application
         {
             name: 'api',
-            script: 'master.js',
+            script: 'dist/master.js',
 
             merge_logs: true,
             log_date_format: "DD.MM.YYYY HH:mm:ss"
