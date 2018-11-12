@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "lib": [ "es2018" ],
+        "target": "ES2018",
+        "moduleResolution": "Node",
+        "sourceMap": false,
+        "outDir": "dist",
+
+         
+        // Resolving modules path
+        "rootDirs": [ "./" ],
+        "paths": {
+            "*": [ "*" ]
+        },
+        "baseUrl": "./src"
+        // Resolving modules path - END
+    },
+    "include": [
+        "src/"
+    ],
+}
