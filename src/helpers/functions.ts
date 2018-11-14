@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import express from 'express';
+import { sendResponse } from './responses';
 
 export function getRandonInt(min: number, max: number): number {
     let rand = min - 0.5 + Math.random() * (max - min + 1);
@@ -40,10 +41,12 @@ export const asyncWrapper = (fn: (req?: express.Request, res?: express.Response,
         if (process.env.NODE_ENV === 'production') msg = 'Internal server error';
     
         res.status(500);
-        res.send({
+        req.response = {
             status: 'FAIL',
             message: msg,
-        });
+        };
+
+        sendResponse(req, res);
     });
 }
 
