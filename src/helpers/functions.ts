@@ -46,3 +46,7 @@ export const asyncWrapper = (fn: (req?: express.Request, res?: express.Response,
         });
     });
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => {
+    setTimeout(() => resolve(), ms);
+});

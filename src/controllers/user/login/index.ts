@@ -31,8 +31,12 @@ const validationSchema = {
 
 export default asyncWrapper(async (req, res, next) => {
     const data = req.body;
-    //let validationErrors = Validate(validationSchema, data) || [];
-    //if (validationErrors.length) return badRequest(req, res, next, validationErrors);
+    
+    // Validate body params
+    if (req.method == 'POST') {
+        let validationErrors = Validate(validationSchema, data) || [];
+        if (validationErrors.length) return badRequest(req, res, next, validationErrors);
+    }
 
     // Connection for non transactional query's
     const dbClient = await req.getDbClient();

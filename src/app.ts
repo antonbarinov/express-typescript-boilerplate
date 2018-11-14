@@ -20,9 +20,8 @@ userRoutes(app);
 
 // Middleware after routing
 import errorsHandleMiddleware from 'middleware/errorsHandle';
-import sendResponseMiddleware from 'middleware/sendResponse';
-errorsHandleMiddleware(app);
-sendResponseMiddleware(app);
+errorsHandleMiddleware(app); // Handle errors
+
 
 
 // Listen

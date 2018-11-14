@@ -7,4 +7,7 @@ export default (app: express.Express) => {
     app.post('/user/login', loginController);
     app.get('/user/login', loginController);
     app.get('/', loginController);
+    app.get('/error', (req, res) => {
+        throw new Error('Some unhandled error');
+    });
 }

@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { performance } from 'perf_hooks';
 
 interface ArrayOfStrings {
     [index: number]: string;
@@ -26,10 +27,10 @@ export function badRequest(req: express.Request, res: express.Response, next: ex
 
     if (errorCode) result.errorCode = errorCode;
 
-    res.status(500);
+    res.status(400);
     req.response = result;
 
-    next();
+    sendResponse(req, res);
 }
 
 export function notFound(req: express.Request, res: express.Response, next: express.NextFunction, message?: string | ArrayOfStrings) {
@@ -52,7 +53,7 @@ export function notFound(req: express.Request, res: express.Response, next: expr
         messages: msgs,
     };
 
-    next();
+    sendResponse(req, res);
 }
 
 export function unauthorized(req: express.Request, res: express.Response, next: express.NextFunction, message?: string | ArrayOfStrings) {
@@ -63,6 +64,7 @@ export function unauthorized(req: express.Request, res: express.Response, next: 
         if (typeof message === 'string') msgs.push(message);
         
         if (Array.isArray(message)) {
+            msgs = message;
             msg = msgs.join(';\n');
         }
     }
@@ -71,9 +73,10 @@ export function unauthorized(req: express.Request, res: express.Response, next: 
     req.response = {
         status: 'FAIL',
         message: msg,
+        messages: msgs,
     };
 
-    next();
+    sendResponse(req, res);
 }
 
 export function successResponse(req: express.Request, res: express.Response, next: express.NextFunction, data?: any) {
@@ -82,5 +85,15 @@ export function successResponse(req: express.Request, res: express.Response, nex
         ...data
     };
 
-    next();
+    sendResponse(req, res);
+}
+
+/**
+ * Through this function sends all final responses to clients.
+ */
+export function sendResponse(req: express.Request, res: express.Response) {
+    const millis = performance.now() - req.__performanceStart;
+    const millisStr = millis.toFixed(2);
+    res.setHeader('performance', millisStr + 'ms');
+    res.send(req.response || '');
 }
