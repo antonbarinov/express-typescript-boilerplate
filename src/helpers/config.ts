@@ -1,4 +1,11 @@
-const config: Config = require(__dirname + '/../../.env.js'); // get it from project root folder or somewhere else
+let config: Config = null;
+
+// Try / catch only in test mode
+try {
+    config = require(__dirname + '/../../.env.js'); // get it from project root folder
+} catch (e) {
+    console.warn(`No config file was loaded. Create .env.js in project root folder.`);
+}
 
 
 interface Config {

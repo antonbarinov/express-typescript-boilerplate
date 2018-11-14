@@ -39,18 +39,19 @@ export default asyncWrapper(async (req, res, next) => {
     }
 
     // Connection for non transactional query's
-    const dbClient = await req.getDbClient();
+    //const dbClient = await req.getDbClient();
+
     // Connection for transactions
-    const dbClientTransactions = await req.getTransactionsDbClient();
+    //const dbClientTransactions = await req.getTransactionsDbClient();
+
     // Redis client
     const  { redisClient } = req;
 
-    let result = await dbClient.selectOne(`SELECT NOW() as now`);
-    let result2 = await dbClientTransactions.selectOne(`SELECT NOW() as now`);
+    //let result = await dbClient.selectOne(`SELECT NOW() as now`);
+    //let result2 = await dbClientTransactions.selectOne(`SELECT NOW() as now`);
 
     
     successResponse(req, res, next, {
-        now: result,
-        now2: result2
+        hello: 'world',
     });
 });
