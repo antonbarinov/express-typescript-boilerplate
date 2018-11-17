@@ -20,3 +20,9 @@ go to http://localhost:3000/
 # pm2 save
 ```
 After that backend with api and services will also starts after system reboot
+
+## Other scripts
+```
+// Run database migrations
+npm run db:migrate
+```

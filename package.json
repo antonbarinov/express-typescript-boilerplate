@@ -5,6 +5,7 @@
   "main": "master.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
+    "db:migrate": "tsc && node dist/database_migrations/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

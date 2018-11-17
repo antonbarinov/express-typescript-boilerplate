@@ -7,15 +7,6 @@ const numCPUs = os.cpus().length;
     if (cluster.isMaster) {
         console.log(`Master ${process.pid} is running`);
 
-        /*
-        console.log('--- DATABASE MIGRATION STARTED ---');
-
-        // Run database migrations
-        // ...
-
-        console.log('--- DATABASE MIGRATION FINISHED ---');
-        */
-
         // Fork workers.
         for (let i = 0; i < numCPUs; i++) {
             cluster.fork();

@@ -1,10 +1,10 @@
 import * as express from 'express';
-import PgPoolNew from 'lib/pgsql_wrapper';
+import PgPool from 'lib/pgsql_wrapper';
 import config from 'helpers/config';
 import Redis from 'ioredis';
 
 // Init PostresSQL connections pool
-const pgPoolNew = new PgPoolNew(config.postgres);
+const pgPool = new PgPool(config.postgres);
 //const redisClient = new Redis(config.redis);
 
 
@@ -17,12 +17,12 @@ export default (app: express.Express) => {
         req.getTransactionsDbClient = async () => {
             if (req.__dbClient !== null) return req.__dbClient;
 
-            req.__dbClient = await pgPoolNew.getTransactionClient();            
+            req.__dbClient = await pgPool.getTransactionClient();            
             return req.__dbClient;
         }
 
         // Get PostresSQL connection from pool
-        req.getDbClient = async () => pgPoolNew.getClient();
+        req.getDbClient = async () => pgPool.getClient();
 
         // Redis client
         //req.redisClient = redisClient;
