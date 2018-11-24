@@ -1,5 +1,7 @@
 // App begins
 import express from 'express';
+import config from 'helpers/config';
+import * as amqp from 'helpers/amqp';
 
 const app = express();
 
@@ -23,6 +25,10 @@ import errorsHandleMiddleware from 'middleware/errorsHandle';
 errorsHandleMiddleware(app); // Handle errors
 
 
+(async () => {
+    // Connect to RabbitMQ server
+    await amqp.init(config.rabbitMQ);
 
-// Listen
-app.listen(3000, () => console.log('App listening on port 3000!'));
+    // Listen api
+    app.listen(3000, () => console.log('App listening on port 3000!'));
+})();

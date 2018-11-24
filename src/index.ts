@@ -1,7 +1,7 @@
 // Enironment
 process.env.NODE_ENV = (process.env.NODE_ENV || 'development').toLowerCase();
 
-//Ensure we're in the project directory, so relative paths work as expected no matter where we actually lift from.
+// Ensure we're in the project directory, so relative paths work as expected no matter where we actually lift from.
 process.chdir(__dirname);
 
 // Absolute modules require's without node_modules

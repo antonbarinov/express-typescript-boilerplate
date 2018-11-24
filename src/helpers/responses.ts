@@ -6,7 +6,7 @@ interface ArrayOfStrings {
 }
 
 
-export function badRequest(req: express.Request, res: express.Response, next: express.NextFunction, message?: string | ArrayOfStrings, errorCode?: number) {
+export function badRequest(req: express.Request, res: express.Response, next: express.NextFunction, message?: string | ArrayOfStrings, errorCodes?: number | number[]) {
     let msg = 'Bad request';
     let msgs = [];
 
@@ -25,7 +25,11 @@ export function badRequest(req: express.Request, res: express.Response, next: ex
         messages: msgs,
     };
 
-    if (errorCode) result.errorCode = errorCode;
+    if (errorCodes) {
+        // Error code can be  array like [ 100, 156 ] for clients logic
+        if (!Array.isArray(errorCodes)) errorCodes = [ errorCodes ];
+        result.errorCodes = errorCodes;
+    }
 
     res.status(400);
     req.response = result;

@@ -182,12 +182,13 @@ export class PgQueryBuilder {
     /**
      * Release connection from transations pool
      */
-    release() {
+    async release() {
         // @ts-ignore
         if (typeof this.client.release === 'function' && !this.isReleased) {
+            await this.rollbackTransaction(); // In case of forgotten transactions
             // @ts-ignore
             this.client.release();
-            this.isReleased = true;
+            this.isReleased = true;            
         }
     }
 
@@ -469,6 +470,8 @@ export class PgQueryBuilder {
      */
     async beginTransaction(): Promise<boolean> {
         if (this.isInTransaction) return false;
+        // @ts-ignore
+        if (this.client.release === undefined) throw `For transactions you must use client from pgPool!`;
 
         this.isInTransaction = true;
         await this.query('BEGIN');

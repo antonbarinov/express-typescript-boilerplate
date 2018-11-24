@@ -12,7 +12,6 @@ export interface User {
 }
 
 export enum UserTypes {
-    Regular,
-    Admin,
-    Advanced
+    Employee, // Worker
+    Employer, // Director
 }

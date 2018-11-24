@@ -5,7 +5,7 @@ import Redis from 'ioredis';
 
 // Init PostresSQL connections pool
 const pgPool = new PgPool(config.postgres);
-//const redisClient = new Redis(config.redis);
+const redisClient = new Redis(config.redis);
 
 
 
@@ -25,7 +25,7 @@ export default (app: express.Express) => {
         req.getDbClient = async () => pgPool.getClient();
 
         // Redis client
-        //req.redisClient = redisClient;
+        req.redisClient = redisClient;
         
         res.on('finish', () => {
             try {

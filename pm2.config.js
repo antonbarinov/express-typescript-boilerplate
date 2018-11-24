@@ -12,5 +12,12 @@ module.exports = {
             merge_logs: true,
             log_date_format: "DD.MM.YYYY HH:mm:ss"
         },
+        {
+            name: 'microservice--emailSender',
+            script: 'dist/microservices/emailSender/master.js',
+
+            merge_logs: true,
+            log_date_format: "DD.MM.YYYY HH:mm:ss"
+        },
     ]
 };

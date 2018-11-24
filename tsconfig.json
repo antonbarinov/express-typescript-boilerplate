@@ -8,6 +8,11 @@
         "sourceMap": false,
         "outDir": "dist",
 
+        "typeRoots": [
+            "src/typings",
+            "node_modules/@types"
+        ],
+
          
         // Resolving modules path
         "rootDirs": [ "./" ],

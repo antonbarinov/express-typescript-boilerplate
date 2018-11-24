@@ -5,3 +5,4 @@ node_modules
 dist
 .env.js
 .env.json
+test*
