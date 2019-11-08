@@ -34,22 +34,30 @@ export const asyncWrapper = (fn: (req?: express.Request, res?: express.Response,
         const res: express.Response = args[1];
         const next: express.NextFunction = args[2];
 
-        let msg = err.message;
-
-        console.error(`[${req.method} ${req.url}]`, err.message, err.stack);
-
-        if (process.env.NODE_ENV === 'production') msg = 'Internal server error';
-    
-        res.status(500);
-        req.response = {
-            status: 'FAIL',
-            message: msg,
-        };
-
-        sendResponse(req, res);
+        handleExpressUnexpectedError(err, req, res, next);
     });
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => {
     setTimeout(() => resolve(), ms);
 });
+
+export function handleExpressUnexpectedError(err: Error, req: express.Request, res: express.Response, next: express.NextFunction) {
+    let msg = err.message;
+
+    console.error(`[${req.method} ${req.url}]`, err.message, err.stack);
+
+    if (process.env.NODE_ENV === 'production') msg = 'Internal server error';
+
+    // Release PostresSQL connection back to pool
+    req.__dbClient?.release();
+
+    res.status(500);
+    req.response = {
+        status: 'FAIL',
+        message: msg,
+        messages: [ msg ]
+    };
+
+    sendResponse(req, res);
+}

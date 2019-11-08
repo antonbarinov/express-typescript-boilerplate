@@ -3,31 +3,28 @@ import express from 'express';
 import config from 'helpers/config';
 import * as amqp from 'helpers/amqp';
 
-const app = express();
+export const app = express();
 
 // Middleware before routing
-import onRequest from 'middleware/onRequest';
-import bodyParserMiddleware from 'middleware/bodyParser';
-import pgsqlForRequestMiddleware from 'middleware/pgsqlForRequest';
-onRequest(app);
-pgsqlForRequestMiddleware(app);
-bodyParserMiddleware(app);
+import 'middleware/onRequest';
+import 'middleware/bodyParser';
+import 'middleware/pgsqlForRequest';
+// Middleware before routing - END
 
 
 // Routing
-import userRoutes from 'routes/user';
-userRoutes(app);
+import 'routes/user';
 // Routing -- END
 
 
 // Middleware after routing
-import errorsHandleMiddleware from 'middleware/errorsHandle';
-errorsHandleMiddleware(app); // Handle errors
+import 'middleware/errorsHandle';
+// Middleware after routing - END
 
 
 (async () => {
     // Connect to RabbitMQ server
-    await amqp.init(config.rabbitMQ);
+    //await amqp.init(config.rabbitMQ);
 
     // Listen api
     app.listen(3000, () => console.log('App listening on port 3000!'));

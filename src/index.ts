@@ -9,6 +9,8 @@ process.env.NODE_PATH = __dirname;
 process.env.ROOT_DIR = __dirname;
 require('module').Module._initPaths();
 
+require('source-map-support').install();
+
 
 // Import app
-import "./app";
+import './app';

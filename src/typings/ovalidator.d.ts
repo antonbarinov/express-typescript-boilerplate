@@ -1,5 +1,5 @@
 declare module '@antonbarinov/ovalidator' {
-    interface IErrorMsgFunction{
+    interface IErrorMsgFunction {
         (objPathStr: string, maxnValue: number): string;
     }
 

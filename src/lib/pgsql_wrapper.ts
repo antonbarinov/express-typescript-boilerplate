@@ -11,7 +11,7 @@ let tablesColumnsCache = {};
 
 
 // Ported from PostgreSQL 9.2.4 source code in src/interfaces/libpq/fe-exec.c
-const escapeIdentifier = function (str: string) {
+function escapeIdentifier (str: string) {
     let escaped = '"';
 
     for (let i = 0; i < str.length; i++) {
@@ -29,7 +29,7 @@ const escapeIdentifier = function (str: string) {
 };
 
 // Ported from PostgreSQL 9.2.4 source code in src/interfaces/libpq/fe-exec.c
-const escapeLiteral = function (str: string, wrapInQuotes: boolean = true) {
+function escapeLiteral (str: string, wrapInQuotes: boolean = true) {
     str = `${str}`;
     let hasBackslash = false;
     let escaped = '\'';
@@ -231,12 +231,12 @@ export class PgQueryBuilder {
     /**
      * Add value that must be incremented to query builder
      */
-    increment(column: string, value: any): PgQueryBuilder {
-        value = escapeLiteral(value + '', true);
+    increment(column: string, value: number): PgQueryBuilder {
+        const escapedValue = escapeLiteral(String(value), true);
 
         this.__queryData[column] = {
             column,
-            value,
+            value: escapedValue,
             increnemt: true
         }
 
@@ -246,12 +246,12 @@ export class PgQueryBuilder {
     /**
      * Add value that must be decrenemted to query builder
      */
-    decrenemt(column: string, value: any): PgQueryBuilder {
-        value = escapeLiteral(value + '', true);
+    decrenemt(column: string, value: number): PgQueryBuilder {
+        const escapedValue = escapeLiteral(String(value), true);
 
         this.__queryData[column] = {
             column,
-            value,
+            value: escapedValue,
             decrenemt: true
         }
 

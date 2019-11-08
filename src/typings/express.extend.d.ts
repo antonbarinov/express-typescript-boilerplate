@@ -9,7 +9,7 @@ declare global {
             user?: User;
             getTransactionsDbClient() : Promise<pgsqlWrapper.PgQueryBuilder>;
             getDbClient() : Promise<pgsqlWrapper.PgQueryBuilder>;
-            __dbClient: pgsqlWrapper.PgQueryBuilder;
+            __dbClient: pgsqlWrapper.PgQueryBuilder | null;
             __performanceStart: number;
             redisClient: Redis.Redis;
             response: any;

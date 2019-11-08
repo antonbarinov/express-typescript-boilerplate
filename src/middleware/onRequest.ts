@@ -1,10 +1,10 @@
 import * as express from 'express';
 import { performance } from 'perf_hooks';
+import { app } from 'app';
 
-export default (app: express.Express) => {
-    app.use(async (req, res, next) => {
-        req.__performanceStart = performance.now();
-        
-        next();
-    });
-}
+
+app.use(async (req, res, next) => {
+    req.__performanceStart = performance.now();
+    
+    next();
+});
